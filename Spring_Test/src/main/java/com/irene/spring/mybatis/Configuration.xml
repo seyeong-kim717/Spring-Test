@@ -11,6 +11,6 @@
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/irene/spring/mybatis/UsersMapper.xml"/>
-		<mapper resource="com/irene/springS/mybatis/FileMapper.xml"/>
+		<mapper resource="com/irene/spring/mybatis/FileMapper.xml"/>
 	</mappers>
 </configuration>

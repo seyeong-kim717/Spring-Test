@@ -12,16 +12,20 @@ import org.springframework.web.servlet.ModelAndView;
 import com.irene.spring.file.dto.FileDto;
 import com.irene.spring.file.service.FileService;
 
+
+
 @Controller
 public class FileController {
 	@Autowired
 	private FileService fileService;
 	
-	
+	//파일 목록 보기 요청 처리 
 	@RequestMapping("/file/list")
 	public ModelAndView list(HttpServletRequest request,
 			ModelAndView mView) {
+
 		fileService.getList(request);
+
 		mView.setViewName("file/list");
 		return mView;
 	}
@@ -47,6 +51,7 @@ public class FileController {
 	public ModelAndView download(@RequestParam int num,
 			ModelAndView mView) {
 		fileService.getFileData(num, mView);
+		
 		mView.setViewName("fileDownView");
 		return mView;
 	}

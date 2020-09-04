@@ -11,15 +11,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.irene.spring.file.dao.FileDao;
 import com.irene.spring.file.dto.FileDto;
+
+
 
 @Service
 public class FileServiceImpl implements FileService{
 	@Autowired
 	private FileDao fileDao;
 	
+	
 	final int PAGE_ROW_COUNT=5;
+	
 	final int PAGE_DISPLAY_COUNT=5;
 	
 	@Override
@@ -27,25 +32,25 @@ public class FileServiceImpl implements FileService{
 		
 		
 		int pageNum=1;
-		
+			
 		String strPageNum=request.getParameter("pageNum");
 		if(strPageNum != null){
 			pageNum=Integer.parseInt(strPageNum);
 		}
-		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 	
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 
-		String keyword=request.getParameter("keyword"); 
-		String condition=request.getParameter("condition"); 
+		String keyword=request.getParameter("keyword");
+		String condition=request.getParameter("condition");
 		if(keyword==null){
-			keyword="";
+			keyword=""; 
 			condition="";
 		}
 		
 		String encodedK=URLEncoder.encode(keyword);
 		
-
 		FileDto dto=new FileDto();
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
@@ -60,9 +65,9 @@ public class FileServiceImpl implements FileService{
 				dto.setWriter(keyword);
 			}
 		}
-
+	
 		List<FileDto> list=fileDao.getList(dto);
-	 
+	
 		int totalRow=fileDao.getCount(dto);
 		
 		
@@ -75,7 +80,7 @@ public class FileServiceImpl implements FileService{
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 		
 		if(totalPageCount < endPageNum){
-			endPageNum=totalPageCount;  
+			endPageNum=totalPageCount; 
 		}
 		
 		
@@ -92,11 +97,11 @@ public class FileServiceImpl implements FileService{
 	@Override
 	public void saveFile(FileDto dto, ModelAndView mView, 
 				HttpServletRequest request) {
-
+		
 		MultipartFile myFile=dto.getMyFile();
 		
 		String orgFileName=myFile.getOriginalFilename();
-	
+		
 		long fileSize=myFile.getSize();
 		
 		
@@ -117,12 +122,12 @@ public class FileServiceImpl implements FileService{
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 		String id=(String)request.getSession().getAttribute("id");
 		dto.setWriter(id); 
 		dto.setOrgFileName(orgFileName);
 		dto.setSaveFileName(saveFileName);
 		dto.setFileSize(fileSize);
+		
 		fileDao.insert(dto);
 		
 		mView.addObject("dto", dto);
@@ -130,17 +135,13 @@ public class FileServiceImpl implements FileService{
 
 	@Override
 	public void getFileData(int num, ModelAndView mView) {
-		
 		FileDto dto=fileDao.getData(num);
-		
 		mView.addObject("dto", dto);
 	}
 
 	@Override
 	public void deleteFile(int num, HttpServletRequest request) {
-		
 		FileDto dto=fileDao.getData(num);
-		
 		String saveFileName=dto.getSaveFileName();
 		String path=request.getServletContext().getRealPath("/upload")+
 				File.pathSeparator+saveFileName;
@@ -149,3 +150,4 @@ public class FileServiceImpl implements FileService{
 	}
 	
 }
+

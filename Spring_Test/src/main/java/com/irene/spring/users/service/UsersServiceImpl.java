@@ -25,7 +25,7 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public Map<String, Object> isExistId(String inputId) {
 		boolean isExist=dao.isExist(inputId);
-		Map<String, Object> map=new HashMap<>();
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("isExist", isExist);
 		return map;
 	}
