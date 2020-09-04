@@ -6,8 +6,11 @@
 	<typeAliases>
 		<typeAlias type="com.irene.spring.users.dto.UsersDto" 
 			alias="usersDto"/>	
+		<typeAlias type="com.irene.spring.file.dto.FileDto" 
+			alias="fileDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/irene/spring/mybatis/UsersMapper.xml"/>
+		<mapper resource="com/irene/springS/mybatis/FileMapper.xml"/>
 	</mappers>
 </configuration>
