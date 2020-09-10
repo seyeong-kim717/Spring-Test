@@ -24,6 +24,7 @@
 	<p>Spring Framework 동작중 ...</p>
 	<ul>
 		<li><a href="file/list.do">자료실 목록 보기</a></li>
+		<li><a href="css3/Step01_BorderRadius.html">css3 테스트</a></li>
 	</ul>
 	<p>오타 수정.</p>
 </div>
